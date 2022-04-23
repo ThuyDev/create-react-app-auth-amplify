@@ -1,14 +1,38 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  code {font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;}
+
+  h1 {@apply text-2xl}
+  h2 {@apply text-xl}
+
+  input[type=text] {@apply border border-blue-900 rounded-md px-2 py-1}
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+@layer components {
+  .card { @apply p-4 rounded-lg border shadow-md text-gray-700 bg-white border-gray-200 dark:text-gray-200 dark:bg-gray-800 dark:border-gray-700 }
+
+  .btn { @apply text-white font-medium rounded-md text-sm px-2.5 py-1.5 mr-2 mb-2 focus:outline-none}
+  .btn-default {@apply bg-blue-900 hover:bg-blue-800 dark:bg-blue-400 dark:hover:bg-blue-700}
+  .btn-alternative {@apply text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700}
+  .btn-dark {@apply bg-gray-700 hover:bg-gray-800 focus:ring-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:border-gray-600}
+  .btn-light {@apply text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700}
+  .btn-green {@apply bg-green-700 hover:bg-green-800 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800}
+  .btn-red {@apply bg-red-700 hover:bg-red-800 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900}
+  .btn-yellow {@apply bg-yellow-400 hover:bg-yellow-500 focus:ring-yellow-300 dark:focus:ring-yellow-900}
+  .btn-purple {@apply bg-purple-700 hover:bg-purple-800 focus:ring-purple-300 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900}  
+
+  .btn-link {@apply text-gray-900 hover:underline dark:bg-gray-800 dark:text-gray-200}
 }
+
+@layer utilities {}
