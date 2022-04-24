@@ -17,6 +17,11 @@
   h2 {@apply text-xl}
 
   input[type=text] {@apply border border-blue-900 rounded-md px-2 py-1}
+
+  .app-body {
+    width: 100vw;
+    height: 100vh;
+  }
 }
 
 @layer components {
