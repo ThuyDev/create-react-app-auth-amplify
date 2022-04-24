@@ -16,7 +16,7 @@ function SearchProductCpn(props) {
 
 function ProductCartCpn(props) {
   const [lsProduct, setLsProduct] = React.useState(
-    [...Array(1).keys()].map((key) => {
+    [...Array(5).keys()].map((key) => {
       const quantity = parseInt(Math.random() * 10) + 1;
       return {
         name: `Sản phẩm ${key + 1}`,
