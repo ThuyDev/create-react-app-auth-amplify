@@ -1,7 +1,7 @@
 import MinusIcon from "../../svg-icons/MinusIcon";
 import PlusIcon from "../../svg-icons/PlusIcon";
 
-function ProductQntSelector({ quantity, setQuantity, maxQuantity }) {
+function ProductQntSelector({ quantity, setQuantity, maxQuantity, className }) {
   const num = parseInt(quantity || "1");
   const maxNum = maxQuantity ? parseInt(maxQuantity) : null;
 
@@ -14,7 +14,7 @@ function ProductQntSelector({ quantity, setQuantity, maxQuantity }) {
   const disablePlus = maxNum && num >= maxNum;
 
   return (
-    <div className="flex flex-row items-center space-x-2">
+    <div className={`flex flex-row items-center space-x-2 ${className || ""}`}>
       <button
         className={` ${disableMinus ? "text-gray-700" : "text-blue-500"}`}
         disabled={disableMinus}
@@ -22,10 +22,10 @@ function ProductQntSelector({ quantity, setQuantity, maxQuantity }) {
           updateQuantity(num - 1);
         }}
       >
-        <MinusIcon />
+        <MinusIcon className="w-4 h-4" />
       </button>
       <input
-        className="w-16 text-center"
+        className="w-12 text-center"
         type={"number"}
         value={quantity}
         min="0"
@@ -41,7 +41,7 @@ function ProductQntSelector({ quantity, setQuantity, maxQuantity }) {
           updateQuantity(num + 1);
         }}
       >
-        <PlusIcon />
+        <PlusIcon className="w-4 h-4" />
       </button>
     </div>
   );

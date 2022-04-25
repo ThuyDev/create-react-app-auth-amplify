@@ -15,8 +15,8 @@ function App(props) {
 
   return (
     <BrowserRouter>
-      <div className="container mx-auto my-6">
-        <NavigationBar signOut={signOut} />
+      <div className="container mx-auto pb-6">
+        <NavigationBar className="sticky top-0 bg-slate-200 dark:bg-slate-800" signOut={signOut} />
         <AppRoutes />
       </div>
     </BrowserRouter>

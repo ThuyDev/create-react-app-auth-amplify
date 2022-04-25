@@ -4,13 +4,13 @@ import useDarkMode from "../../hooks/useDarkMode";
 import MoonIcon from "../../svg-icons/MoonIcon";
 import SunIcon from "../../svg-icons/SunIcon";
 
-function NavigationBar({ signOut }) {
+function NavigationBar({ signOut, className }) {
   const { isDark, toggleDark } = useDarkMode();
   const location = useLocation();
   console.log(location.pathname);
 
   return (
-    <nav>
+    <nav className={`${className || ''}`}>
       <ul className="flex flex-row">
         <li>
           <Link to="/" className="my-btn my-btn-link">
