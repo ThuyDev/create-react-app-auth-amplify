@@ -2,7 +2,7 @@ import React from "react";
 import * as mockDatas from "../../mocks/mockData";
 
 function ProductSelector({ onSelect, className }) {
-  // console.log(ProductSelector.name);
+  console.log(ProductSelector.name);
 
   const [sku, setSku] = React.useState("");
 
@@ -20,14 +20,12 @@ function ProductSelector({ onSelect, className }) {
       <input
         type={"text"}
         id={"searchProductBox"}
-        placeholder="nhập SKU và click 'thêm'"
+        placeholder="nhập SKU"
         value={sku}
         onChange={(e) => setSku(e.target.value)}
+        onKeyDown={(e) => e.key === "Enter" && selectProduct()}
       />
-      <button
-        className="my-btn my-btn-default ml-2"
-        onClick={() => selectProduct()}
-      >
+      <button className="my-btn ml-2" onClick={() => selectProduct()}>
         thêm
       </button>
     </div>

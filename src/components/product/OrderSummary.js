@@ -1,4 +1,6 @@
 function OrderSummary({ order, lsProduct, className }) {
+  console.log(OrderSummary.name);
+
   const { discount } = order;
   const amount = (lsProduct || []).reduce(
     (preVal, product) => preVal + product.price * product.quantity,

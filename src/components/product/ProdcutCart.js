@@ -2,7 +2,7 @@ import React from "react";
 import ProductCard from "./ProductCard";
 
 function ProductCart({ lsProduct, onUpdate, onDelete, className }) {
-  // console.log(ProductCart.name);
+  console.log(ProductCart.name);
 
   const ProductElements = [];
   lsProduct.forEach((product, i) => {
@@ -19,8 +19,6 @@ function ProductCart({ lsProduct, onUpdate, onDelete, className }) {
     );
     ProductElements.push(Product);
   });
-
-  // if (ProductElements.length === 0) return "Chưa có sản phẩm nào";
 
   return (
     <div className={`flex flex-col space-y-1 ${className || ""}`}>

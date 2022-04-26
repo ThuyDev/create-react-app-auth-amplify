@@ -41,7 +41,7 @@ export const useStore = create(
         set((state) => ({
           lsProduct: state.lsProduct.filter((p) => p !== product),
         }));
-      },
+      }
     }),
     {
       name: "app-storate",

@@ -30,14 +30,16 @@
 
   input[type=text], input[type=number] {@apply border border-blue-900 rounded-md px-2 py-1 text-sm}
   input {@apply text-gray-900 dark:text-gray-900}
+
+  button {@apply disabled:bg-gray-400}
 }
 
 @layer components {
   .my-card { @apply p-4 shadow-md border rounded-lg border-gray-200 bg-white text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200}
 
-  .my-btn { @apply text-white font-medium rounded-md text-sm px-2.5 py-1.5 focus:outline-none}
+  .my-btn { @apply text-white bg-teal-600 font-medium rounded-md text-sm px-2.5 py-1.5 focus:outline-none}
   .my-btn-default {@apply bg-blue-700 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700}
-  .my-btn-link {@apply text-gray-900 hover:underline dark:text-gray-200}
+  .my-btn-link {@apply text-gray-900 bg-inherit hover:underline dark:text-gray-200}
 }
 
 @layer utilities {}

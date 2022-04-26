@@ -2,6 +2,8 @@ import DeleteIcon from "../../svg-icons/DeleteIcon";
 import ProductQntSelector from "./ProductQntSelector";
 
 function ProductCard({ product, onUpdate, onDelete, className }) {
+  console.log(ProductCard.name);
+
   function setQuantity(quantity) {
     onUpdate && onUpdate(product, { ...product, quantity });
   }

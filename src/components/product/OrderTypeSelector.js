@@ -16,9 +16,11 @@ const lsOrderType = [
   },
 ];
 
-function OrderTypeSelector({ selectedValue, onChange }) {
+function OrderTypeSelector({ selectedValue, onChange, className }) {
+  console.log(OrderTypeSelector.name);
+
   return (
-    <div className="flex flex-row space-x-8 px-8">
+    <div className={`flex flex-row space-x-8 px-8 ${className || ''}`}>
       {lsOrderType.map((type) => (
         <div key={type.id}>
           <input

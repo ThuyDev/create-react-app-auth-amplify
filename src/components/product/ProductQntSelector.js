@@ -16,7 +16,7 @@ function ProductQntSelector({ quantity, setQuantity, maxQuantity, className }) {
   return (
     <div className={`flex flex-row items-center space-x-2 ${className || ""}`}>
       <button
-        className={` ${disableMinus ? "text-gray-700" : "text-blue-500"}`}
+        className="text-blue-500 disabled:bg-inherit disabled:text-gray-700"
         disabled={disableMinus}
         onClick={() => {
           updateQuantity(num - 1);
@@ -35,7 +35,7 @@ function ProductQntSelector({ quantity, setQuantity, maxQuantity, className }) {
         }}
       />
       <button
-        className={` ${disablePlus ? "text-gray-700" : "text-blue-500"}`}
+        className="text-blue-500 disabled:bg-inherit disabled:text-gray-700"
         disabled={disablePlus}
         onClick={() => {
           updateQuantity(num + 1);

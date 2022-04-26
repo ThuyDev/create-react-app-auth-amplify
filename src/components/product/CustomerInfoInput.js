@@ -1,4 +1,6 @@
 function CustomerInfoInput({ customerInfo, onUpdate, className }) {
+  console.log(CustomerInfoInput.name);
+
   const { customerTel, customerName, customerAddress } = customerInfo;
 
   function onChangeInput(name, value) {
@@ -17,7 +19,7 @@ function CustomerInfoInput({ customerInfo, onUpdate, className }) {
           id="customer-name"
           className="flex-1"
           type={"text"}
-          value={customerTel}
+          value={customerTel || ''}
           onChange={(e) => onChangeInput("customerTel", e.target.value)}
         />
       </div>
@@ -29,7 +31,7 @@ function CustomerInfoInput({ customerInfo, onUpdate, className }) {
           id="customer-name"
           className="flex-1"
           type={"text"}
-          value={customerName}
+          value={customerName || ''}
           onChange={(e) => onChangeInput("customerName", e.target.value)}
         />
       </div>
@@ -41,7 +43,7 @@ function CustomerInfoInput({ customerInfo, onUpdate, className }) {
           id="customer-name"
           className="flex-1"
           type={"text"}
-          value={customerAddress}
+          value={customerAddress || ''}
           onChange={(e) => onChangeInput("customerAddress", e.target.value)}
         />
       </div>

@@ -26,7 +26,7 @@ export async function getProduct(sku) {
             name: `Sản phẩm ${sku}`,
             sku: sku,
             price: parseInt(Math.random() * 100000),
-            image: `https://picsum.photos/200`,
+            image: `https://picsum.photos/200?random=${parseInt(Math.random() * 10)}`,
             quantity: 1,
             stock: parseInt(Math.random() * 50),
           };
