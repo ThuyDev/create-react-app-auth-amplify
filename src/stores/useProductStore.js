@@ -1,10 +1,13 @@
 import create from "zustand";
 import { persist } from "zustand/middleware";
 
-export const useStore = create(
+export const useProductStore = create(
   persist(
-    (set) => ({
+    (set, get) => ({
       lsProduct: [],
+      getProduct: (sku) => {
+        return get().lsProduct.filter((p) => p.sku === sku)[0] || null
+      },
       setLsProduct: (lsProduct) => {
         set((state) => ({ lsProduct }));
       },
@@ -44,7 +47,7 @@ export const useStore = create(
       }
     }),
     {
-      name: "app-storate",
+      name: "product-store",
     }
   )
 );

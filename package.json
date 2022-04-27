@@ -5,6 +5,7 @@
   "dependencies": {
     "@aws-amplify/ui-react": "^1.2.6",
     "aws-amplify": "^4.3.14",
+    "moment": "^2.29.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^6.3.0",

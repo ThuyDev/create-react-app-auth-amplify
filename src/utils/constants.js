@@ -1,0 +1,1 @@
+export const paymentMethods = { 1: "Tiền mặt", 2: "Chuyển khoản" }
