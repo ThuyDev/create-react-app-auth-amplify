@@ -1,4 +1,9 @@
-function CustomerInfoInput({ customerInfo, onUpdate, className }) {
+function CustomerInfoInput({
+  mode = "edit",
+  customerInfo,
+  onUpdate,
+  className,
+}) {
   console.log(CustomerInfoInput.name);
 
   const { customerTel, customerName, customerAddress } = customerInfo;
@@ -9,7 +14,7 @@ function CustomerInfoInput({ customerInfo, onUpdate, className }) {
 
   return (
     <div className={`flex flex-col space-y-1 ${className || ""}`}>
-      <h4 className="font-medium pb-1">Thông tin khách hàng:</h4>
+      <h4 className="pb-1 font-medium">Thông tin khách hàng:</h4>
 
       <div className="flex flex-row">
         <label htmlFor="customer-name" className="w-24">
@@ -19,8 +24,9 @@ function CustomerInfoInput({ customerInfo, onUpdate, className }) {
           id="customer-name"
           className="flex-1"
           type={"text"}
-          value={customerTel || ''}
+          value={customerTel || ""}
           onChange={(e) => onChangeInput("customerTel", e.target.value)}
+          disabled={mode === "view"}
         />
       </div>
       <div className="flex flex-row">
@@ -31,8 +37,9 @@ function CustomerInfoInput({ customerInfo, onUpdate, className }) {
           id="customer-name"
           className="flex-1"
           type={"text"}
-          value={customerName || ''}
+          value={customerName || ""}
           onChange={(e) => onChangeInput("customerName", e.target.value)}
+          disabled={mode === "view"}
         />
       </div>
       <div className="flex flex-row">
@@ -43,8 +50,9 @@ function CustomerInfoInput({ customerInfo, onUpdate, className }) {
           id="customer-name"
           className="flex-1"
           type={"text"}
-          value={customerAddress || ''}
+          value={customerAddress || ""}
           onChange={(e) => onChangeInput("customerAddress", e.target.value)}
+          disabled={mode === "view"}
         />
       </div>
     </div>

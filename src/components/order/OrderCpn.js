@@ -9,6 +9,7 @@ import { useOrderCpn } from "../../hooks/useOrderCpn";
 import PageNotFound from "../../pages/PageNotFound";
 import ProductList from "../product/ProductList";
 import { paymentMethods } from "../../utils/constants";
+import { useNavigate } from "react-router-dom";
 
 /* TODO:
 1. Btn Clear
@@ -20,6 +21,10 @@ import { paymentMethods } from "../../utils/constants";
 function OrderCpn({ orderNo = null, isEdit = null, toggleMode = null }) {
   console.log(OrderCpn.name);
 
+  const mode = orderNo ? (isEdit ? "edit" : "view") : "new";
+
+  const navigate = useNavigate();
+
   const {
     order,
     onSelectProduct,
@@ -29,27 +34,61 @@ function OrderCpn({ orderNo = null, isEdit = null, toggleMode = null }) {
     onDeleteProduct,
     onClear,
     onSave,
+    reload,
+    isChanged,
   } = useOrderCpn(orderNo);
+
+  function clickClear() {
+    onClear();
+    if (orderNo) toggleMode && toggleMode();
+  }
+
+  function clickSave() {
+    onSave()
+      .then((retOrder) => {
+        if (!orderNo) {
+          // - switch to view order page
+          navigate(`/order/${retOrder.orderNo}`);
+        } else {
+          // toggle to mode 'view'
+          toggleMode && toggleMode();
+          // and reload data
+          reload();
+        }
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  }
 
   if (!order) return <PageNotFound />;
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="mx-auto max-w-4xl">
       <div className="flex flex-col space-y-4">
-        <h1 className="mb-4 text-center">CREATE ORDER</h1>
-        <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-          {!isEdit ? (
-            <div className="md:flex-1 space-y-4">
-              <div className="h-8 px-4 py-auto">
-                <button className="my-btn my-btn-link">Edit</button>
-              </div>
+        <div>
+          <h2 hidden={mode === "new"} className="mb-4 text-center">
+            Số đơn hàng:{" "}
+            <span className="w-32 text-3xl font-medium tracking-widest">
+              {orderNo?.toUpperCase()}
+            </span>
+          </h2>
+          <h1 hidden={mode !== "new"} className="mb-4 text-center">
+            CREATE ORDER
+          </h1>
+        </div>
+        <div className="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0 ">
+          {/* Product List */}
+          {mode === "view" ? (
+            <div className="space-y-4 md:flex-1">
+              <div className="h-8"></div>
               <ProductList
                 className="my-card"
                 lsProduct={order.lsProduct || []}
               />
             </div>
           ) : (
-            <div className="md:flex-1 space-y-4">
+            <div className="space-y-4 md:flex-1">
               <ProductSelector className="h-8" onSelect={onSelectProduct} />
               <ProductCart
                 className="my-card"
@@ -60,8 +99,9 @@ function OrderCpn({ orderNo = null, isEdit = null, toggleMode = null }) {
             </div>
           )}
           <div className="space-y-4 md:w-2/5">
-            {!isEdit ? (
-              <div className="h-8 px-4 py-auto">
+            {/* Payment Method */}
+            {mode === "view" ? (
+              <div className="py-auto h-8 px-4">
                 <p>
                   PT thanh toán:{" "}
                   <span className="font-medium">
@@ -76,27 +116,51 @@ function OrderCpn({ orderNo = null, isEdit = null, toggleMode = null }) {
                 onChange={(value) => onChangeOrderType(value)}
               />
             )}
+            {/* Order summary */}
             <OrderSummary
               className="my-card"
               order={order}
               lsProduct={order.lsProduct || []}
             />
+            {/* Customer info */}
             <CustomerInfoInput
               className="my-card"
               customerInfo={order.customerInfo || {}}
               onUpdate={onUpdateCustomerInfo}
+              mode={mode === "view" ? "view" : "edit"}
             />
+            {/* Buttons */}
             <div className="w-full text-center">
-              <button className="my-btn" onClick={(e) => onClear()}>
-                Hủy thay đổi
-              </button>
-              <button
-                className="my-btn ml-2"
-                disabled={!order.lsProduct || order.lsProduct.length === 0}
-                onClick={(e) => onSave()}
-              >
-                Lưu
-              </button>
+              {mode === "view" ? (
+                <>
+                  <button className="my-btn" onClick={(e) => toggleMode()}>
+                    Sửa thông tin
+                  </button>
+                  <button
+                    className="my-btn ml-2"
+                    onClick={(e) => window.history.back()}
+                  >
+                    Close
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button className="my-btn" onClick={(e) => clickClear()}>
+                    Hủy thay đổi
+                  </button>
+                  <button
+                    className="my-btn ml-2"
+                    disabled={
+                      !order.lsProduct ||
+                      order.lsProduct.length === 0 ||
+                      !isChanged()
+                    }
+                    onClick={(e) => clickSave()}
+                  >
+                    Lưu
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </div>

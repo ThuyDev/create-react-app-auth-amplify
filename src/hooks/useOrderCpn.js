@@ -1,6 +1,6 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { useOrderStore } from "../stores/useOrderStore";
+import { compare } from "../utils/utils";
 
 // useOrder hook provide: an order state and funcions
 // - order state: state of an order
@@ -12,8 +12,6 @@ import { useOrderStore } from "../stores/useOrderStore";
 // - onDeleteProduct: update order.lsProduct state (remove a product from order)
 // - initData: reset order
 export function useOrderCpn(orderNo) {
-  const navigate = useNavigate();
-
   const getInitOrder = useOrderStore((state) => state.getInitOrder);
   const getOrder = useOrderStore((state) => state.getOrder);
   const getNewOrderNo = useOrderStore((state) => state.getNewOrderNo);
@@ -21,9 +19,21 @@ export function useOrderCpn(orderNo) {
   const updateOrder = useOrderStore((state) => state.updateOrder);
 
   const [order, setOrder] = React.useState(null);
-  React.useEffect(() => {
-    setOrder(orderNo ? getOrder(orderNo) : getInitOrder());
+  const [originOrder, setOriginOrder] = React.useState(order);
+
+  const reload = React.useCallback(() => {
+    const orderData = orderNo ? getOrder(orderNo) : getInitOrder();
+    setOrder(orderData);
+    setOriginOrder(orderData);
   }, [getInitOrder, getOrder, orderNo]);
+
+  React.useEffect(() => {
+    reload();
+  }, [reload]);
+
+  function isChanged() {
+    return !compare(originOrder, order, 3);
+  }
 
   function onSelectProduct(product) {
     if (!product.sku) return;
@@ -89,7 +99,7 @@ export function useOrderCpn(orderNo) {
   }
 
   // event button::onSave
-  function onSave() {
+  async function onSave() {
     // [TODO] - confirm popup
     // [TODO] - call real api save data
 
@@ -97,24 +107,20 @@ export function useOrderCpn(orderNo) {
     if (!orderNo) newOrderNo = getNewOrderNo();
 
     // save order
-    if (orderNo) updateOrder(order);
-    else addOrder({ orderNo: newOrderNo, ...order });
-
-    // // - switch to view order page
-    navigate(`/order/${orderNo || newOrderNo}`);
-
-    // // - init data
-    initData();
+    if (orderNo) return updateOrder(order);
+    else return addOrder({ orderNo: newOrderNo, ...order });
   }
 
   return {
     order,
+    reload,
     onChangeOrderType,
     onUpdateCustomerInfo,
     onSelectProduct,
     onUpdateProduct,
     onDeleteProduct,
-    onClear, 
+    onClear,
     onSave,
+    isChanged,
   };
 }

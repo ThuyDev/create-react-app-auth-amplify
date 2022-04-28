@@ -57,11 +57,22 @@ function clear(setStore) {
 
 // get an initial order object
 function getInitOrder() {
-  // orderType: 1:$, 2:Bank, 3:COD
   return {
     lsProduct: [],
-    customerInfo: {},
+    customerInfo: {
+      customerTel: "",
+      customerName: "",
+      customerAddress: "",
+    },
     orderType: "1",
+  };
+}
+
+function cloneOrder(order) {
+  return {
+    ...order,
+    lsProduct: order.lsProduct.map((p) => ({ ...p })),
+    customerInfo: { ...order.customerInfo },
   };
 }
 
@@ -69,8 +80,6 @@ export const useOrderStore = create(
   persist(
     (set, get) => ({
       lsOrder: [],
-      // get an initial order
-      getInitOrder: () => getInitOrder(),
       // get order by orderNo
       getOrder: (orderNo) => getOrder(get(), orderNo),
       // get order by orderNo
@@ -83,6 +92,10 @@ export const useOrderStore = create(
       removeOrder: (order) => removeOrder(set, order),
       // clear store
       clear: () => clear(set),
+      // get an initial order
+      getInitOrder: () => getInitOrder(),
+      // get an initial order
+      cloneOrder: () => cloneOrder(),
     }),
     {
       name: "order-store",

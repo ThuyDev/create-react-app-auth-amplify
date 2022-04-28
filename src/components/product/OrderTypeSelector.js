@@ -1,18 +1,15 @@
+import { paymentMethods } from "../../utils/constants";
+
 const lsOrderType = [
   {
     id: "orderType-cash",
     value: "1",
-    label: "Cash"
+    label: paymentMethods["1"],
   },
   {
     id: "orderType-bank",
     value: "2",
-    label: "Bank"
-  },
-  {
-    id: "orderType-cod",
-    value: "3",
-    label: "COD"
+    label: paymentMethods["2"],
   },
 ];
 
@@ -20,7 +17,7 @@ function OrderTypeSelector({ selectedValue, onChange, className }) {
   console.log(OrderTypeSelector.name);
 
   return (
-    <div className={`flex flex-row space-x-8 px-8 ${className || ''}`}>
+    <div className={`flex flex-row space-x-8 px-8 ${className || ""}`}>
       {lsOrderType.map((type) => (
         <div key={type.id}>
           <input
@@ -31,7 +28,9 @@ function OrderTypeSelector({ selectedValue, onChange, className }) {
             checked={type.value === selectedValue}
             onChange={(e) => onChange && onChange(e.target.value)}
           />
-          <label className="ml-2" htmlFor={type.id}>{type.label}</label>
+          <label className="ml-2" htmlFor={type.id}>
+            {type.label}
+          </label>
         </div>
       ))}
     </div>
